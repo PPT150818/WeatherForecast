@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherForecast.DbPersist.Entities;
-using WeatherForecast.DBPersist.Helpers;
+using  WeatherForecast.DbPersist.Helpers;
 
-namespace WeatherForecast.DBPersist
+namespace WeatherForecast.DbPersist
 {
-    internal class DbPersistDbContext : DbContext
+    public class DbPersistDbContext : DbContext
     {
         public DbPersistDbContext()
             : base(DbPersistHelper.GetConnectionString())

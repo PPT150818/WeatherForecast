@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Weather Forcast Details";
+}
+@using DevExtreme.AspNet.Mvc;
+<script src="~/Scripts/ForecastWeather/ForecastWeather.js"></script>
+@model WeatherForecast.Response.InterfaceModels.WeatherForecastInput
+<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+
+<div class="row">
+    <div style="padding-left:10px;padding-right:10px;">
+
+        <div class="row">
+            @(Html.DevExtreme().Form<WeatherForecast.Response.InterfaceModels.WeatherForecastInput>()
+        .ID("WFMform").ColCount(3)
+        .Items(items =>
+        {
+            items.AddSimple().DataField("Latitude").IsRequired(true).Label(l => l.Text("Latitude").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbLatitude"));
+            items.AddSimple().DataField("Longitude").IsRequired(true).Label(l => l.Text("Longitude").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbLongitude"));
+            items.AddButton().ButtonOptions(l => l.ID("btnView").Text("View").OnClick("btnView_OnClick"));
+        }))
+
+
+        </div>
+        <div class="row">
+
+            @{
+                Html.Partial("_WeatherForecastDetails", new WeatherForecast.Models.WeatherForecastModel());
+            }
+
+        </div>
+    </div>
+</div>

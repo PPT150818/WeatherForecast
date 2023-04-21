@@ -46,8 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExtreme.AspNet.Data, Version=2.9.2.0, Culture=neutral, PublicKeyToken=982f5dab1439d0f7, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExtreme.AspNet.Data.2.9.2\lib\net452\DevExtreme.AspNet.Data.dll</HintPath>
+    <Reference Include="DevExtreme.AspNet.Data, Version=2.6.1.0, Culture=neutral, PublicKeyToken=982f5dab1439d0f7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExtreme.AspNet.Data.2.6.1\lib\net452\DevExtreme.AspNet.Data.dll</HintPath>
     </Reference>
     <Reference Include="DevExtreme.AspNet.Mvc, Version=22.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -148,11 +148,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\APIForcastWeatherController.cs" />
-    <Compile Include="Controllers\ForcastWeatherController.cs" />
+    <Compile Include="Controllers\APIForecastWeatherController.cs" />
+    <Compile Include="Controllers\ForecastWeatherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\WeatherForcastModel.cs" />
+    <Compile Include="Models\WeatherForecastRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +273,7 @@
     <Content Include="Scripts\vectormap-utils\dx.vectormaputils.js" />
     <Content Include="Scripts\vectormap-utils\dx.vectormaputils.node.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\ForecastWeather\ForecastWeather.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -282,13 +285,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\ForcastWeather\About.cshtml" />
-    <Content Include="Views\ForcastWeather\Contact.cshtml" />
-    <Content Include="Views\ForcastWeather\Index.cshtml" />
+    <Content Include="Views\ForecastWeather\_WeatherForecastDetails.cshtml" />
+    <Content Include="Views\ForecastWeather\WeatherForecastHistory.cshtml" />
+    <Content Include="Views\ForecastWeather\WeatherForecastMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -302,6 +304,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherForcast.Response\WeatherForecast.Response.csproj">
+      <Project>{0a5d178e-9b95-46cf-8fd6-0a653e29628a}</Project>
+      <Name>WeatherForecast.Response</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeatherForecast.API\WeatherForecast.API.csproj">
+      <Project>{4c70ff48-caa2-4382-a4bb-cb69f65201ed}</Project>
+      <Name>WeatherForecast.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeatherForecast.DBPersist\WeatherForecast.DbPersist.csproj">
+      <Project>{a9c8c0dd-8f35-4c9b-b12c-2973fd6e821c}</Project>
+      <Name>WeatherForecast.DbPersist</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

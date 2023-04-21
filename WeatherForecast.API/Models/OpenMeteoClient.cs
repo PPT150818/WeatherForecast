@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Globalization;
-using WeatherForcast.Response.OpenMeteo;
 using Newtonsoft.Json;
 using System.Net.NetworkInformation;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.IO;
 using System.Web;
+using WeatherForecast.Response.OpenMeteo;
 
 namespace WeatherForecast.API.Models
 {
@@ -81,7 +81,7 @@ namespace WeatherForecast.API.Models
         /// </summary>
         /// <param name="options"></param>
         /// <returns>Awaitable Task containing WeatherForecast or NULL</returns>
-        public async Task<WeatherForcast.Response.OpenMeteo.WeatherForecast> QueryAsync(WeatherForecastOptions options)
+        public async Task<WeatherForecast.Response.OpenMeteo.WeatherForecast> QueryAsync(WeatherForecastOptions options)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace WeatherForecast.API.Models
         //}
 
 
-        public WeatherForcast.Response.OpenMeteo.WeatherForecast QueryWeatherForecast(float latitude, float longitude)
+        public WeatherForecast.Response.OpenMeteo.WeatherForecast QueryWeatherForecast(float latitude, float longitude)
         {
             return QueryAsync(latitude, longitude).GetAwaiter().GetResult();
         }
@@ -204,7 +204,7 @@ namespace WeatherForecast.API.Models
         /// <param name="latitude">City latitude</param>
         /// <param name="longitude">City longitude</param>
         /// <returns>Awaitable Task containing WeatherForecast or NULL</returns>
-        public async Task<WeatherForcast.Response.OpenMeteo.WeatherForecast> QueryAsync(float latitude, float longitude)
+        public async Task<WeatherForecast.Response.OpenMeteo.WeatherForecast> QueryAsync(float latitude, float longitude)
         {
             WeatherForecastOptions options = new WeatherForecastOptions
             {
@@ -215,7 +215,7 @@ namespace WeatherForecast.API.Models
             return await QueryAsync(options);
         }
 
-        public WeatherForcast.Response.OpenMeteo.WeatherForecast Query(WeatherForecastOptions options)
+        public WeatherForecast.Response.OpenMeteo.WeatherForecast Query(WeatherForecastOptions options)
         {
             return QueryAsync(options).GetAwaiter().GetResult();
         }
@@ -289,7 +289,7 @@ namespace WeatherForecast.API.Models
             }
         }
 
-        private async Task<WeatherForcast.Response.OpenMeteo.WeatherForecast> GetWeatherForecastAsync(WeatherForecastOptions options)
+        private async Task<WeatherForecast.Response.OpenMeteo.WeatherForecast> GetWeatherForecastAsync(WeatherForecastOptions options)
         {
             try
             {
@@ -303,7 +303,7 @@ namespace WeatherForecast.API.Models
                 //var streamReader = new StreamReader(contentStream);
                 //var jsonReader = new JsonTextReader(streamReader);
 
-                return await JsonSerializer.DeserializeAsync<WeatherForcast.Response.OpenMeteo.WeatherForecast>(contentStream, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                return await JsonSerializer.DeserializeAsync<WeatherForecast.Response.OpenMeteo.WeatherForecast>(contentStream, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 
                 //WeatherForecast.API.OpenMeteo.WeatherForecast weatherForecast1 = await JsonSerializer.DeserializeAsync<WeatherForecast.API.OpenMeteo.WeatherForecast>(streamReader., new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 //WeatherForecast.API.OpenMeteo.WeatherForecast weatherForecast1 = JsonSerializer.Deserialize<WeatherForecast.API.OpenMeteo.WeatherForecast>(utf8Json:streamReader);

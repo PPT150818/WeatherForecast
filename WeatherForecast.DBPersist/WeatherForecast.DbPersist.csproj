@@ -64,7 +64,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherForcast.Response\WeatherForecast.Response.csproj">
+      <Project>{0a5d178e-9b95-46cf-8fd6-0a653e29628a}</Project>
+      <Name>WeatherForecast.Response</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

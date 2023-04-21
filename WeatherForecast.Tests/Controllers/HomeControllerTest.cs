@@ -16,7 +16,7 @@ namespace WeatherForecast.Tests.Controllers
         public void Index()
         {
             // Arrange
-            ForcastWeatherController controller = new ForcastWeatherController();
+            ForecastWeatherController controller = new ForecastWeatherController();
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -29,7 +29,7 @@ namespace WeatherForecast.Tests.Controllers
         public void About()
         {
             // Arrange
-            ForcastWeatherController controller = new ForcastWeatherController();
+            ForecastWeatherController controller = new ForecastWeatherController();
 
             // Act
             ViewResult result = controller.About() as ViewResult;
@@ -42,7 +42,7 @@ namespace WeatherForecast.Tests.Controllers
         public void Contact()
         {
             // Arrange
-            ForcastWeatherController controller = new ForcastWeatherController();
+            ForecastWeatherController controller = new ForecastWeatherController();
 
             // Act
             ViewResult result = controller.Contact() as ViewResult;

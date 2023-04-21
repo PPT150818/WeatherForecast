@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace WeatherForcast.Response.OpenMeteo
+namespace WeatherForecast.Response.OpenMeteo
 {
     /// <summary>
     /// Api response containing information about current weather conditions

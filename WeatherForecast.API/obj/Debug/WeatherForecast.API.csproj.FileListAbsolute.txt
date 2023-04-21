@@ -84,10 +84,10 @@ D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\System.Web.Razor.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\System.Web.WebPages.Deployment.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\System.Web.WebPages.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\System.Web.WebPages.Razor.dll
-D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForcast.Response.dll
+D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForecast.Response.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WebGrease.dll
-D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForcast.Response.pdb
-D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForcast.Response.dll.config
+D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForecast.Response.pdb
+D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\WeatherForecast.Response.dll.config
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\EntityFramework.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\EntityFramework.SqlServer.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.API\bin\Microsoft.Bcl.AsyncInterfaces.xml

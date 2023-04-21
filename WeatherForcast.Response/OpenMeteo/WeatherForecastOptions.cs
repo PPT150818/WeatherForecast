@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeatherForcast.Response.OpenMeteo
+namespace WeatherForecast.Response.OpenMeteo
 {
     public class WeatherForecastOptions
     {

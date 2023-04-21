@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
-namespace WeatherForcast.Response.OpenMeteo
+namespace WeatherForecast.Response.OpenMeteo
 {
     /// <summary>
     /// Weather models Variables (https://open-meteo.com/en/docs)

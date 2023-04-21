@@ -312,9 +312,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeatherForcast.Response\WeatherForcast.Response.csproj">
+    <ProjectReference Include="..\WeatherForcast.Response\WeatherForecast.Response.csproj">
       <Project>{0a5d178e-9b95-46cf-8fd6-0a653e29628a}</Project>
-      <Name>WeatherForcast.Response</Name>
+      <Name>WeatherForecast.Response</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WeatherForcast.Response.InterfaceModels;
+using WeatherForecast.Response.InterfaceModels;
 using WeatherForecast.API.Models;
 
 namespace WeatherForecast.API.Controllers
@@ -12,22 +12,15 @@ namespace WeatherForecast.API.Controllers
     public class WeatherForcastController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // GET api/values
+/// <summary>
+/// This API method returns
+/// </summary>
+/// <param name="weatherForcastInput"></param>
+/// <returns></returns>
         [HttpGet]
-        public WeatherForcastResponse GetWeatherForcastDetails([FromBody] WeatherForcastInput weatherForcastInput)
+        public WeatherForecastResponse GetWeatherForcastDetails([FromBody] WeatherForecastInput weatherForcastInput)
         {
-            WeatherForcastResponse weatherForcastResponse = new WeatherForcastResponse();
+            WeatherForecastResponse weatherForcastResponse = new WeatherForecastResponse();
             if (weatherForcastInput == null || (weatherForcastInput != null && (weatherForcastInput.Latitude == null || weatherForcastInput.Latitude == null)))
             {
                 weatherForcastResponse.HttpStatusCode = HttpStatusCode.BadRequest;
@@ -47,16 +40,6 @@ namespace WeatherForecast.API.Controllers
             }
 
             return weatherForcastResponse;
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
         }
     }
 }

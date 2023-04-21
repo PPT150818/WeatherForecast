@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherForecast.DBPersist.Migrations
+namespace WeatherForecast.DbPersist.Migrations
 {
     internal class Configuration
     {

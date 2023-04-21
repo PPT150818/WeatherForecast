@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherForecast.DBPersist.Helpers
+namespace WeatherForecast.DbPersist.Helpers
 {
     public static class DbPersistHelper
     {

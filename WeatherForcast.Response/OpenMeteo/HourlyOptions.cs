@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace WeatherForcast.Response.OpenMeteo
+namespace WeatherForecast.Response.OpenMeteo
 {
     /// <summary>
     /// Hourly Weather Variables (https://open-meteo.com/en/docs)
