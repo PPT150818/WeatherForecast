@@ -14,8 +14,8 @@ namespace WeatherForecast.DbPersist.Entities
         public int Id { get; set; }
         public int WeatherForecastMasterId { get; set; }
         public virtual WeatherForecastMaster WeatherForecastMaster { get; set; }
-        public WeatherForecast.Response.OpenMeteo.WeatherForecast WeatherForecast { get; set; }
-        public DateTime UpdatedDateTime { get; set; } = DateTime.UtcNow;
+        public string WeatherForecast { get; set; }
+        public DateTime UpdatedDateTime { get; set; } = DateTime.Now;
         //public float Longitude { get; set; }
         //public float Elevation { get; set; }
         //public float GenerationTime { get; set; }

@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CurrentWeather.cs" />
     <Compile Include="Entities\WeatherForecastMaster.cs" />
     <Compile Include="Entities\WeatherForecastDetails.cs" />
     <Compile Include="Helpers\DbPersistHelper.cs" />

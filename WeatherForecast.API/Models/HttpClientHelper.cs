@@ -6,6 +6,9 @@ using System.Web;
 
 namespace WeatherForecast.API.Models
 {
+    /// <summary>
+    /// Initialised httpclient and required header parameters
+    /// </summary>
     public class HttpClientHelper
     {
         public HttpClient Client { get { return _httpClient; } }

@@ -21,7 +21,7 @@ namespace WeatherForecast.Response.OpenMeteo
         /// WMO Weather interpretation code.
         /// To get an actual string representation use <see cref="OpenMeteo.OpenMeteoClient.WeathercodeToString(int)"/>
         /// </summary>
-        public float Weathercode { get; set; }
+        public int Weathercode { get; set; }
 
         /// <summary>
         /// Windspeed. Unit defined in <see cref="WeatherForecastOptions.Windspeed_Unit"/>

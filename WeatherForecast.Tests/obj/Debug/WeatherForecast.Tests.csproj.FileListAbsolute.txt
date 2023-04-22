@@ -1,3 +1,5 @@
+D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.csproj.AssemblyReference.cache
+D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.csproj.CoreCompileInputs.cache
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -26,6 +28,7 @@ D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\log4net.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\EntityFramework.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\WebGrease.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Text.Json.dll
+D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\DevExtreme.AspNet.Data.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Antlr3.Runtime.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Memory.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.ValueTuple.dll
@@ -56,6 +59,7 @@ D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Net.Ht
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Web.Http.WebHost.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\EntityFramework.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Text.Json.xml
+D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\DevExtreme.AspNet.Data.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Antlr3.Runtime.pdb
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Memory.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.ValueTuple.xml
@@ -65,8 +69,6 @@ D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Thread
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Buffers.xml
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.csproj.AssemblyReference.cache
-D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.csproj.CoreCompileInputs.cache
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.csproj.CopyComplete
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.dll
 D:\WeatherForecast\WeatherForecast\WeatherForecast.Tests\obj\Debug\WeatherForecast.Tests.pdb

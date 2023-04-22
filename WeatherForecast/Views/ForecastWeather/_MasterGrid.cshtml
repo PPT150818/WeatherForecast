@@ -1,0 +1,54 @@
+﻿@using DevExtreme.AspNet.Mvc;
+
+@model WeatherForecast.Models.HistoricalDataModel
+
+<div>
+    @Html.Hidden("MasterKey", Model.MasterKey)
+</div>
+<div id="mastergrid">
+    @(Html.DevExtreme().DataGrid<WeatherForecast.Models.WeatherForecastModel>()
+    .ID("gvWeatherForcastMaster").
+    FocusedRowKey(Model.MasterKey)
+    .DataSource(Model.weatherForecastMasterModel)
+    .Height("350px")
+    .KeyExpr("WFMasterId")
+    .ShowRowLines(true)
+    .RowAlternationEnabled(false)
+    .SelectedRowKeys(new List<int>{ Model.MasterKey })
+    .ShowBorders(true)
+    .Selection(s=>s.Mode(SelectionMode.Single))
+        .OnRowClick("gvWeatherForcastMaster_OnRowClick")
+        .OnRowPrepared("gvWeatherForcastMaster_OnRowPrepared")
+    .Columns(c => {
+        c.AddFor(s => s.WFMasterId).Visible(false);
+        c.AddFor(s=>s.Latitude);
+        c.AddFor(s => s.Longitude);
+        c.AddFor(s => s.WFMasterId).Visible(false);
+        c.AddFor(s => s.LastUpdated).DataType(GridColumnDataType.DateTime);
+
+    })
+      .Paging(paging => paging.Enabled(true))
+       .Scrolling(scrolling => scrolling.RowRenderingMode(GridRowRenderingMode.Virtual))
+    .Paging(paging => paging.PageSize(10))
+    .OnRowRemoving("gvWeatherForcastMaster_OnRowRemoved")
+    .OnFocusedRowChanging("gvWeatherForcastMaster_onFocusedRowChanging")
+
+    .Pager(pager =>
+    {
+        pager.Visible(true);
+        pager.DisplayMode(GridPagerDisplayMode.Full);
+        pager.ShowPageSizeSelector(true);
+        pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+        pager.ShowInfo(true);
+        pager.ShowNavigationButtons(true);
+    })
+    .Editing(editing =>
+    {
+        editing.Mode(GridEditMode.Row);
+        editing.AllowAdding(false);
+        editing.AllowDeleting(true);
+        editing.AllowUpdating(false);
+    })
+)
+</div>
+

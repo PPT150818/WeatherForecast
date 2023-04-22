@@ -1,4 +1,5 @@
-﻿function ShowPopupMessage(message, header, popupMessageMode, okCallback, cancelCallBack, showclosebutton) {
+﻿var GlobalApplicationName = "Weather Forecast";
+function ShowPopupMessage(message, header, popupMessageMode, okCallback, cancelCallBack, showclosebutton) {
     if (header == undefined || header == "" || header == null) {
         header = GlobalApplicationName;
     }

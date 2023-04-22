@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Security.Principal;
 using System.Web.Http;
+using WeatherForecast.Models;
 
 namespace WeatherForecast.Controllers
 {
@@ -32,13 +33,14 @@ namespace WeatherForecast.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetWeatherForecastMaster(DataSourceLoadOptions loadOptions)
+        public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
         {
             var data = new DbPersist.Entities.WeatherForecastMaster();
+            
             try
             {
-                // data = DataSourceLoader.Load(data, loadOptions);
-
+                //List <WeatherForecastModel> weatherForecastModels = WeatherForecastModel.GetWeatherForecastMasterModel();
+                //return Request.CreateResponse(weatherForecastModels);
 
             }
             catch (Exception ex)

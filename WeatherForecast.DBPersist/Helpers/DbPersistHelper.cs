@@ -17,7 +17,7 @@ namespace WeatherForecast.DbPersist.Helpers
 
             foreach (ConnectionStringSettings connString in ConfigurationManager.ConnectionStrings)
             {
-                if (connString.Name == "weatherForecastConnection")
+                if (connString.Name == "weatherForcastDbConnection")
                 {
                     connectionString = connString.ConnectionString;
                     break;

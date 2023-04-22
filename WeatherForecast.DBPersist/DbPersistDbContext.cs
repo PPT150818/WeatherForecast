@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherForecast.DbPersist.Entities;
-using  WeatherForecast.DbPersist.Helpers;
+using WeatherForecast.DbPersist.Helpers;
 
 namespace WeatherForecast.DbPersist
 {
@@ -30,10 +30,14 @@ namespace WeatherForecast.DbPersist
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+          //  modelBuilder.Entity<WeatherForecastDetails>()
+         
+          //.WillCascadeOnDelete(true);
         }
-       
-        public DbSet<WeatherForecastMaster> WeatherForecastMasterList  { get; set; }
+
+        public DbSet<WeatherForecastMaster> WeatherForecastMasterList { get; set; }
         public DbSet<WeatherForecastDetails> WeatherForecastDetailList { get; set; }
-        public DbSet<CurrentWeather> CurrentWeatherList { get; set; }
+        //public DbSet<CurrentWeather> CurrentWeatherList { get; set; }
     }
 }

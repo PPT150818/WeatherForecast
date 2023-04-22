@@ -1,0 +1,55 @@
+﻿@using DevExtreme.AspNet.Mvc;
+
+@model WeatherForecast.Models.HistoricalDataModel
+
+<div>
+    @Html.Hidden("DetailKey", Model.DetailKey)
+</div>
+
+<div id="detailgrid">
+    @(Html.DevExtreme().DataGrid<WeatherForecast.Models.CurrentDetails>()
+    .ID("gvWeatherForcastDetails")
+    .DataSource(Model.weatherForecastDetailModel)
+    .KeyExpr("WFDetailId")
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .FocusedRowKey(Model.DetailKey)
+     .Height("350px")
+     .SelectedRowKeys(new List<int> { Model.DetailKey })
+    .ShowBorders(true)
+        .OnRowClick("gvWeatherForcastDetails_OnRowClick")
+    .Columns(c => {
+        c.AddFor(s => s.WFDetailId).Visible(false);
+        c.AddFor(s => s.GenerationTime);
+        c.AddFor(s => s.Timezone);
+        c.AddFor(s => s.Weathercode).Caption("Weather");
+        c.AddFor(s => s.WindDirection);
+        c.AddFor(s => s.Temperature).Caption("Temperature(°C)");
+        c.AddFor(s => s.Windspeed).Caption("Windspeed(kmh)");
+        c.AddFor(s => s.Time);
+        c.AddFor(s => s.LastUpdated).DataType(GridColumnDataType.DateTime);
+
+    })
+      .Paging(paging => paging.Enabled(true))
+     .ShowRowLines(true)
+      .Scrolling(scrolling => scrolling.RowRenderingMode(GridRowRenderingMode.Virtual))
+    .Paging(paging => paging.PageSize(10))
+    .Pager(pager =>
+    {
+        pager.Visible(true);
+        pager.DisplayMode(GridPagerDisplayMode.Full);
+        pager.ShowPageSizeSelector(true);
+        pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+        pager.ShowInfo(true);
+        pager.ShowNavigationButtons(true);
+    })
+    .OnRowPrepared("gvWeatherForcastDetails_OnRowPrepared")
+    .OnRowRemoved("gvWeatherForcastDetails_OnRowRemoved")
+    .Editing(editing =>
+    {
+        editing.Mode(GridEditMode.Row);
+        editing.AllowAdding(false);
+        editing.AllowDeleting(false);
+        editing.AllowUpdating(false);
+    })
+)
+</div>

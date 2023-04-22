@@ -8,6 +8,7 @@ namespace WeatherForecast.Response.InterfaceModels
 {
     public class WeatherForecastInput
     {
+        public int WFMasterId { get; set; }
         public float? Latitude { get; set; }
         public float? Longitude { get; set; }
     }

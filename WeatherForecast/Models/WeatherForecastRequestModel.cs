@@ -11,6 +11,10 @@ using System.Security.Policy;
 using System.Web.UI.WebControls;
 using log4net;
 using System.Text;
+using WeatherForecast.Response.InterfaceModels;
+using WeatherForecast.DbPersist.Entities;
+using WeatherForecast.Controllers;
+using System.Configuration;
 
 namespace WeatherForecast.Models
 {
@@ -20,7 +24,7 @@ namespace WeatherForecast.Models
 
         private static string GetBaseUrl()
         {
-            return "https://localhost:44345/";
+            return WeatherForcastAPIURL();
         }
 
         private static HttpClient _httpClient;
@@ -31,9 +35,9 @@ namespace WeatherForecast.Models
                 if (_httpClient == null)
                 {
                     _httpClient = new HttpClient();
-                    _httpClient.BaseAddress = new Uri(ApiUrl, UriKind.RelativeOrAbsolute);                    
+                    _httpClient.BaseAddress = new Uri(ApiUrl, UriKind.RelativeOrAbsolute);
                     System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                    _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     _httpClient.Timeout = new TimeSpan(1, 0, 0);
                 }
                 return _httpClient;
@@ -43,72 +47,91 @@ namespace WeatherForecast.Models
                 _httpClient = value;
             }
         }
+        public static string WeatherForcastAPIURL()
+        {
+            string url = ConfigurationManager.AppSettings.AllKeys.Contains("WeatherForcastApiUrl") ? ConfigurationManager.AppSettings["WeatherForcastApiUrl"] : string.Empty;
+            if (!string.IsNullOrWhiteSpace(url) && !url.EndsWith("/"))
+            {
+                LogManager.GetLogger(typeof(ForecastWeatherController)).Info("WeatherForcastApiUrl : "+ url);
+                url = url + "/";
+            }
+            else
+                LogManager.GetLogger(typeof(ForecastWeatherController)).Error("no url configured in web.config for API");
 
+            return url;
+        }
         public static WeatherForecastModel GetWeatherForcastLiveData(WeatherForecast.Response.InterfaceModels.WeatherForecastInput weatherForecastInput)
         {
-            HttpResponseMessage response = null;
-            WeatherForecastModel weatherForecastModel = new WeatherForecastModel();
-            WeatherForecast.Response.InterfaceModels.WeatherForecastResponse weatherForecast = new Response.InterfaceModels.WeatherForecastResponse();
+            WeatherForecastModel weatherForecastModel = null;
 
+            LogManager.GetLogger(typeof(WeatherForecastRequestModel)).Info("Get Weather Forcast Live Data ");
 
             try
             {
-                LogManager.GetLogger(typeof(WeatherForecastRequestModel)).Info("Get ");
-               
-
-
-                #region Get the axys label mapping settings
-
-                try
+                // Create a web request for fetching 
+                HttpClient = null;
+                var content = new StringContent(JsonConvert.SerializeObject(weatherForecastInput), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = HttpClient.PostAsync(HttpClient.BaseAddress + "api/WeatherForcast/GetWeatherForcastDetails", content).Result;
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    // Create a web request for fetching the axys - Clientport field mappings from settings to bind dynamic values
-                    HttpClient = null;
-                    var content = new StringContent(JsonConvert.SerializeObject(weatherForecastInput), Encoding.UTF8, "application/json");
-                    response = HttpClient.PostAsync(HttpClient.BaseAddress + "GetWeatherForcastDetails", content).Result;
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    weatherForecastModel = new WeatherForecastModel();
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    WeatherForecastResponse weatherForecast = JsonConvert.DeserializeObject<WeatherForecastResponse>(result);
+                    weatherForecastModel.WeatherForecast = weatherForecast.weatherForecast;
+                    if (weatherForecast.weatherForecast==null || !SaveAPIDetailResponse(weatherForecastInput, weatherForecastModel))
                     {
-                        string result = response.Content.ReadAsStringAsync().Result;
-                        weatherForecast = JsonConvert.DeserializeObject<WeatherForecast.Response.InterfaceModels.WeatherForecastResponse>(result);
-
-                        //if (hpslist == null)
-                        //{
-                        //    ResultString = "Please check if Client Portal Server is running. Not getting response from web API services.";
-                        //    return APIResult.NullResult;
-                        //}
-                        //if (hpslist != null && hpslist.Count == 1 && hpslist[0].PMSFieldName == null)
-                        //{
-                        //    ResultString = "Account import Failed, unable to get axys label mapping from Client Portal.";
-                        //    return APIResult.NullResult;
-                        //}
+                        LogManager.GetLogger(typeof(ForecastWeatherController)).Error("Failed to get response and save enties in db");
                     }
-                    //else
-                    //{
-                    //    LogManager.GetLogger(typeof(AxysMasterData)).Info(response.StatusCode.ToString() + " : " + response.Content.ReadAsStringAsync().Result.GetTrimValue());
-                    //    ResultString = response.StatusCode.ToString() + " :" + response.Content.ReadAsStringAsync().Result.GetTrimValue();
-
-                    //    return APIResult.InnerCodeError;
-                    //}
                 }
-                catch (Exception ex)
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return weatherForecastModel;
+        }
+
+        internal static bool SaveAPIDetailResponse(WeatherForecastInput weatherForecastInput, WeatherForecastModel weatherForecastResponse)
+        {
+            try
+            {
+                if (weatherForecastResponse.WeatherForecast != null)
                 {
-                    //LogManager.GetLogger(typeof(AxysMasterData)).Error("Account import failed " + Environment.NewLine + ex);
-                    //ResultString = "Account import failed . " + Environment.NewLine + ex.InnerException.Message;
-                    //return APIResult.Failure;
-                }
+                    DbPersist.DbPersistDbContext dbPersistDbContext = new DbPersist.DbPersistDbContext();
+                    List<WeatherForecastMaster> weatherForecastMasters = dbPersistDbContext.WeatherForecastMasterList.ToList();
 
-                #endregion Get the axys label mapping settings
+                    WeatherForecastMaster weatherForecastMaster = weatherForecastMasters.FirstOrDefault(wfm => wfm.Id == weatherForecastInput.WFMasterId);
+                    if (weatherForecastMaster == null)
+                    {
+                        weatherForecastMaster = weatherForecastMasters.FirstOrDefault(wfm => wfm.Latitude == weatherForecastInput.Latitude && wfm.Longitude == weatherForecastInput.Longitude);
+                        if (weatherForecastMaster == null)
+                        {
+                            weatherForecastMaster = new WeatherForecastMaster();
+                            weatherForecastMaster.Latitude = weatherForecastInput.Latitude.HasValue ? weatherForecastInput.Latitude.Value : 0;
+                            weatherForecastMaster.Longitude = weatherForecastInput.Longitude.HasValue ? weatherForecastInput.Longitude.Value : 0;
+                            weatherForecastMaster.UpdatedDateTime = DateTime.Now;
+                        }
+
+                    }
+                    WeatherForecastDetails weatherForecastDetails = new WeatherForecastDetails();
+                    weatherForecastDetails.WeatherForecast = JsonConvert.SerializeObject(weatherForecastResponse.WeatherForecast);
+                    weatherForecastDetails.UpdatedDateTime= DateTime.Now;
+                    weatherForecastDetails.WeatherForecastMaster = weatherForecastMaster;
+                    dbPersistDbContext.WeatherForecastDetailList.Add(weatherForecastDetails);
+                    dbPersistDbContext.SaveChanges();
+                    weatherForecastResponse.WFMasterId = weatherForecastMaster.Id;
+                    weatherForecastResponse.WFDetailId = weatherForecastDetails.Id;
+                    return true;
+
+                }
             }
             catch (Exception ex)
             {
-                //LogManager.GetLogger(typeof(AxysMasterData)).Error("UploadAccountData Error : " + ex.StackTrace);
-                //APIResult result = AxysHelper.GetLoggerResult(ex, cnt, negativeCnt, totalCnt, "UploadAccountData");
-                //return result;
+
+                throw ex;
             }
-            finally
-            {
-                //childMultipleProgressBar.CloseProgress();
-            }
-            return weatherForecastModel;
+            return false;
         }
     }
 }

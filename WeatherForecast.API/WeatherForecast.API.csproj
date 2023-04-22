@@ -223,7 +223,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HttpClientHelper.cs" />
-    <Compile Include="Models\LatLongDetails.cs" />
     <Compile Include="Models\OpenMeteoClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

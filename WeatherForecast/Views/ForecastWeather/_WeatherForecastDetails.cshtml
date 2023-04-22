@@ -2,8 +2,20 @@
     ViewBag.Title = "Weather Forcast Details";
 }
 @using DevExtreme.AspNet.Mvc;
+@using WeatherForecast.Helpers;
 @model WeatherForecast.Models.WeatherForecastModel
+@{
+    if (Model.WeatherForecast == null)
+    {
+        Model.WeatherForecast = new WeatherForecast.Response.OpenMeteo.WeatherForecast();
+    }
 
+    if (Model.WeatherForecast.CurrentWeather == null)
+    {
+        Model.WeatherForecast.CurrentWeather = new WeatherForecast.Response.OpenMeteo.CurrentWeather();
+    }
+    string weather = Model.WeatherForecast.CurrentWeather.Weathercode.WeathercodeToString();
+}
 @*<div class="jumbotron">
         <h1>ASP.NET</h1>
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -14,72 +26,34 @@
     <div style="padding-left:10px;padding-right:10px;">
 
         <div id="form">
-            @(Html.DevExtreme().Form<WeatherForecast.Models.WeatherForecastModel>()
-        .ID("form")
-        .Items(items => {
-            items.AddGroup()
-                .CssClass("first-group")
-                .ColCount(4)
-                .Items(groupItems => {
-                    groupItems.AddSimple().Template("<div class='form-avatar'></div>");
-                    groupItems.AddGroup().ColSpan(3).Items(secondGroupItems => {
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.Latitude);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.Longitude);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.GenerationTime)
-                            .Editor(e => e
-                                .DateBox()
-                                .Width("100%")
-                            )
-                            .IsRequired(false);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.Elevation);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.Timezone);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.TimezoneAbbreviation);
-                    });
+            @(Html.DevExtreme().Form().ID("form").ScrollingEnabled(true).Items(it =>
+        {
+        it.AddGroup().ColCount(4).Caption("Forecasting Details").Items(groupItems =>
+        {
+            groupItems.AddSimple().Label(l => l.Text("Latitude").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbLatitude").Value(Model.WeatherForecast.Latitude).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Longitude").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbLongitude").Value(Model.WeatherForecast.Longitude).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Generation Time").Location(FormLabelLocation.Left)).Editor(e => e.NumberBox().ID("nbGeneration").Value(Model.WeatherForecast.GenerationTime).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Elevation").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbElevation").Value(Model.WeatherForecast.Elevation).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Timezone").Location(FormLabelLocation.Left)).Editor(l => l.TextBox().ID("txtTimezone").Value(Model.WeatherForecast.Timezone).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Timezone Abbreviation").Location(FormLabelLocation.Left)).Editor(l => l.TextBox().ID("txtAbbreviation").Value(Model.WeatherForecast.TimezoneAbbreviation).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Temperature").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbTemperature").Value(Model.WeatherForecast.CurrentWeather.Temperature).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Windspeed").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbWindspeed").Value(Model.WeatherForecast.CurrentWeather.Windspeed).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("WindDirection").Location(FormLabelLocation.Left)).Editor(l => l.NumberBox().ID("nbWindDirection").Value(Model.WeatherForecast.CurrentWeather.WindDirection).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Weathercode").Location(FormLabelLocation.Left)).Editor(l => l.TextBox().ID("txtWeathercode").Value(weather).Disabled(true));
+            groupItems.AddSimple().Label(l => l.Text("Time").Location(FormLabelLocation.Left)).Editor(l => l.TextBox().ID("nbTime").Value(Model.WeatherForecast.CurrentWeather.Time).Disabled(true));
+            groupItems.AddButton().ButtonOptions(s=>s.Type(ButtonType.Default).ID("btnGetLatestDetails").Text("Get Latest Weather").Visible(Model.Showbutton).OnClick("btnGetLatestDetails"));
+        });
+        it.AddGroup().ColCount(4).Items(groupItems =>
+        {
+        groupItems.AddSimple().Template(@<text>
+                     
+                    </text>);
                 });
+            }).FormData(Model))
+            
 
 
-            items.AddGroup()
-                .CssClass("second-group")
-                .ColCount(2)
-                .Items(groupItems => {
-                    groupItems.AddGroup().Items(secondGroupItems => {
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.CurrentWeather.Temperature);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.CurrentWeather.Windspeed);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.CurrentWeather.WindDirection);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.CurrentWeather.Weathercode);
-                        secondGroupItems.AddSimpleFor(m => m.WeatherForecast.CurrentWeather.Time);
-                    });
-                    //groupItems.AddGroup().Items(secondGroupItems => {
-                    //    secondGroupItems.AddSimpleFor(m => m.State)
-                    //        .Editor(e => e
-                    //            .SelectBox()
-                    //            .DataSource(new[] {
-                    //                    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-                    //                    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-                    //                    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-                    //                    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-                    //                    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
-                    //                }
-                    //            )
-                    //        );
-                    //    secondGroupItems.AddSimpleFor(m => m.Zipcode).Label(l => l.Text("Zip Code"));
-                    //    secondGroupItems.AddSimpleFor(m => m.Phone)
-                    //        .Editor(e => e
-                    //            .TextBox()
-                    //            .Mask("+1 (000) 000-0000")
-                    //        );
-                    //});
 
-                    //groupItems.AddSimpleFor(m => m.Notes)
-                    //    .ColSpan(2)
-                    //    .Editor(e => e
-                    //        .TextArea()
-                    //        .Height(140)
-                    //    );
-                });
-        })
-        .FormData(Model)
-    )
         </div>
 
     </div>

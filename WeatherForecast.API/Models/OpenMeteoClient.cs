@@ -18,8 +18,6 @@ namespace WeatherForecast.API.Models
     public class OpenMeteoClient
     {
         private readonly string _weatherApiUrl = "https://api.open-meteo.com/v1/forecast";
-        private readonly string _geocodeApiUrl = "https://geocoding-api.open-meteo.com/v1/search";
-        private readonly string _airQualityApiUrl = "https://air-quality-api.open-meteo.com/v1/air-quality";
         private readonly HttpClientHelper httpController;
 
         /// <summary>
@@ -30,52 +28,7 @@ namespace WeatherForecast.API.Models
             httpController = new HttpClientHelper();
         }
 
-        ///// <summary>
-        ///// Performs two GET-Requests (first geocoding api for latitude,longitude, then weather forecast)
-        ///// </summary>
-        ///// <param name="location">Name of city</param>
-        ///// <returns>If successful returns an awaitable Task containing WeatherForecast or NULL if request failed</returns>
-        //public async Task<WeatherForecast.API.OpenMeteo.WeatherForecast> QueryAsync(string location)
-        //{
-        //    GeocodingOptions geocodingOptions = new GeocodingOptions(location);
-
-        //    // Get location Information
-        //    GeocodingApiResponse? response = await GetGeocodingDataAsync(geocodingOptions);
-        //    if (response == null || response.Locations == null)
-        //        return null;
-
-        //    WeatherForecastOptions options = new WeatherForecastOptions
-        //    {
-        //        Latitude = response.Locations[0].Latitude,
-        //        Longitude = response.Locations[0].Longitude,
-        //        Current_Weather = true
-        //    };
-
-        //    return await GetWeatherForecastAsync(options);
-        //}
-
-        ///// <summary>
-        ///// Performs two GET-Requests (first geocoding api for latitude,longitude, then weather forecast)
-        ///// </summary>
-        ///// <param name="options">Geocoding options</param>
-        ///// <returns>If successful awaitable <see cref="Task"/> or NULL</returns>
-        //public async Task<WeatherForecast?> QueryAsync(GeocodingOptions options)
-        //{
-        //    // Get City Information
-        //    GeocodingApiResponse? response = await GetLocationDataAsync(options);
-        //    if (response == null || response?.Locations == null)
-        //        return null;
-
-        //    WeatherForecastOptions weatherForecastOptions = new WeatherForecastOptions
-        //    {
-        //        Latitude = response.Locations[0].Latitude,
-        //        Longitude = response.Locations[0].Longitude,
-        //        Current_Weather = true
-        //    };
-
-        //    return await GetWeatherForecastAsync(weatherForecastOptions);
-        //}
-
+      
         /// <summary>
         /// Performs one GET-Request
         /// </summary>
@@ -95,107 +48,13 @@ namespace WeatherForecast.API.Models
 
 
 
-        ///// <summary>
-        ///// Gets Weather Forecast for a given location with individual options
-        ///// </summary>
-        ///// <param name="location"></param>
-        ///// <param name="options"></param>
-        ///// <returns><see cref="WeatherForecast"/> for the FIRST found result for <paramref name="location"/></returns>
-        //public async Task<WeatherForecast?> QueryAsync(string location, WeatherForecastOptions options)
-        //{
-        //    GeocodingApiResponse? geocodingApiResponse = await GetLocationDataAsync(location);
-        //    if (geocodingApiResponse == null || geocodingApiResponse?.Locations == null)
-        //        return null;
-
-        //    options.Longitude = geocodingApiResponse.Locations[0].Longitude;
-        //    options.Latitude = geocodingApiResponse.Locations[0].Latitude;
-
-        //    return await GetWeatherForecastAsync(options);
-        //}
-
-        ///// <summary>
-        ///// Gets air quality data for a given location with individual options
-        ///// </summary>
-        ///// <param name="options">options for air quality request</param>
-        ///// <returns><see cref="AirQuality"/> if successfull or <see cref="null"/> if failed</returns>
-        //public async Task<AirQuality?> QueryAsync(AirQualityOptions options)
-        //{
-        //    return await GetAirQualityAsync(options);
-        //}
-
-        ///// <summary>
-        ///// Performs one GET-Request to Open-Meteo Geocoding API 
-        ///// </summary>
-        ///// <param name="location">Name of a location or city</param>
-        ///// <returns></returns>
-        //public async Task<GeocodingApiResponse?> GetLocationDataAsync(string location)
-        //{
-        //    GeocodingOptions geocodingOptions = new GeocodingOptions(location);
-
-        //    return await GetLocationDataAsync(geocodingOptions);
-        //}
-
-        //public async Task<GeocodingApiResponse?> GetLocationDataAsync(GeocodingOptions options)
-        //{
-        //    return await GetGeocodingDataAsync(options);
-        //}
-
-        ///// <summary>
-        ///// Performs one GET-Request to get a (float, float) tuple
-        ///// </summary>
-        ///// <param name="location">Name of a city or location</param>
-        ///// <returns>(latitude, longitude) tuple of first found location or null if no location was found</returns>
-        //public async Task<(float latitude, float longitude)?> GetLocationLatitudeLongitudeAsync(string location)
-        //{
-        //    GeocodingApiResponse? response = await GetLocationDataAsync(location);
-        //    if (response == null || response?.Locations == null)
-        //        return null;
-        //    return (response.Locations[0].Latitude, response.Locations[0].Longitude);
-        //}
-
 
         public WeatherForecast.Response.OpenMeteo.WeatherForecast QueryWeatherForecast(float latitude, float longitude)
         {
             return QueryAsync(latitude, longitude).GetAwaiter().GetResult();
         }
 
-        //public WeatherForecast? Query(string location, WeatherForecastOptions options)
-        //{
-        //    return QueryAsync(location, options).GetAwaiter().GetResult();
-        //}
-
-        //public WeatherForecast? Query(GeocodingOptions options)
-        //{
-        //    return QueryAsync(options).GetAwaiter().GetResult();
-        //}
-
-        //public WeatherForecast? Query(string location)
-        //{
-        //    return QueryAsync(location).GetAwaiter().GetResult();
-        //}
-
-        //public AirQuality? Query(AirQualityOptions options)
-        //{
-        //    return QueryAsync(options).GetAwaiter().GetResult();
-        //}
-
-        //private async Task<AirQuality?> GetAirQualityAsync(AirQualityOptions options)
-        //{
-        //    try
-        //    {
-        //        HttpResponseMessage response = await httpController.Client.GetAsync(MergeUrlWithOptions(_airQualityApiUrl, options));
-        //        response.EnsureSuccessStatusCode();
-
-        //        AirQuality? airQuality = await JsonSerializer.DeserializeAsync<AirQuality>(await response.Content.ReadAsStreamAsync(), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-        //        return airQuality;
-        //    }
-        //    catch (HttpRequestException e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        Console.WriteLine(e.StackTrace);
-        //        return null;
-        //    }
-        //}
+       
 
 
         /// <summary>
@@ -218,76 +77,7 @@ namespace WeatherForecast.API.Models
         public WeatherForecast.Response.OpenMeteo.WeatherForecast Query(WeatherForecastOptions options)
         {
             return QueryAsync(options).GetAwaiter().GetResult();
-        }
-        /// <summary>
-        /// Converts a given weathercode to it's string representation
-        /// </summary>
-        /// <param name="weathercode"></param>
-        /// <returns><see cref="string"/> Weathercode string representation</returns>
-        public string WeathercodeToString(int weathercode)
-        {
-            switch (weathercode)
-            {
-                case 0:
-                    return "Clear sky";
-                case 1:
-                    return "Mainly clear";
-                case 2:
-                    return "Partly cloudy";
-                case 3:
-                    return "Overcast";
-                case 45:
-                    return "Fog";
-                case 48:
-                    return "Depositing rime Fog";
-                case 51:
-                    return "Light drizzle";
-                case 53:
-                    return "Moderate drizzle";
-                case 55:
-                    return "Dense drizzle";
-                case 56:
-                    return "Light freezing drizzle";
-                case 57:
-                    return "Dense freezing drizzle";
-                case 61:
-                    return "Slight rain";
-                case 63:
-                    return "Moderate rain";
-                case 65:
-                    return "Heavy rain";
-                case 66:
-                    return "Light freezing rain";
-                case 67:
-                    return "Heavy freezing rain";
-                case 71:
-                    return "Slight snow fall";
-                case 73:
-                    return "Moderate snow fall";
-                case 75:
-                    return "Heavy snow fall";
-                case 77:
-                    return "Snow grains";
-                case 80:
-                    return "Slight rain showers";
-                case 81:
-                    return "Moderate rain showers";
-                case 82:
-                    return "Violent rain showers";
-                case 85:
-                    return "Slight snow showers";
-                case 86:
-                    return "Heavy snow showers";
-                case 95:
-                    return "Thunderstorm";
-                case 96:
-                    return "Thunderstorm with light hail";
-                case 99:
-                    return "Thunderstorm with heavy hail";
-                default:
-                    return "Invalid weathercode";
-            }
-        }
+        }        
 
         private async Task<WeatherForecast.Response.OpenMeteo.WeatherForecast> GetWeatherForecastAsync(WeatherForecastOptions options)
         {

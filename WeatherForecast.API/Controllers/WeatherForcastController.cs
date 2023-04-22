@@ -12,12 +12,12 @@ namespace WeatherForecast.API.Controllers
     public class WeatherForcastController : ApiController
     {
         // GET api/values
-/// <summary>
-/// This API method returns
-/// </summary>
-/// <param name="weatherForcastInput"></param>
-/// <returns></returns>
-        [HttpGet]
+        /// <summary>
+        /// This API method returns
+        /// </summary>
+        /// <param name="weatherForcastInput">Latitude and Longitude provided by user</param>
+        /// <returns></returns>
+        [HttpPost]
         public WeatherForecastResponse GetWeatherForcastDetails([FromBody] WeatherForecastInput weatherForcastInput)
         {
             WeatherForecastResponse weatherForcastResponse = new WeatherForecastResponse();
